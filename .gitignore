@@ -1,0 +1,9 @@
+# Whitelist: ignora TUDO por padrão e libera apenas o que deve ser publicado.
+# Documentos internos (estratégia, planos, materiais de afiliados, .docx, etc.)
+# nunca serão versionados, mesmo que novos arquivos apareçam na pasta.
+
+/*
+
+# Exceções liberadas para publicação:
+!/.gitignore
+!/docs/

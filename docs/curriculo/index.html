@@ -3,41 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NNZXQPTD');</script>
+<!-- End Google Tag Manager -->
 <title>Gerador de Currículo — Primeira Chance</title>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     ⚠️  PIXELS DE REMARKETING — IMPORTANTE!
-     Antes de subir para produção, substitua os IDs abaixo pelos seus IDs reais:
-     - Facebook Pixel: troque 'YOUR_PIXEL_ID' (em 2 lugares)
-     - Google Analytics: troque 'G-XXXXXXXXXX' (em 2 lugares)
-     Se ainda não tem os IDs, pode deixar como está - não vai quebrar nada.
-═════════════════════════════════════════════════════════════════════════ -->
-
-<!-- Facebook Pixel -->
-<script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', 'YOUR_PIXEL_ID');
-  fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"/></noscript>
-
-<!-- Google Analytics 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
-<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- Pixel (Meta) e Google Analytics agora são gerenciados pelo Google Tag Manager (snippet acima). -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -1332,6 +1307,10 @@
 </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NNZXQPTD"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <!-- TOP BAR -->
 <div class="top-bar">
@@ -1888,9 +1867,9 @@
 let currentStep = 1;
 const totalSteps = 8;
 
-// ⚠️ GOOGLE APPS SCRIPT — captura de leads (preencher depois)
-// Enquanto for o placeholder YOUR_SCRIPT_ID, NADA é enviado.
-const URL_APPS_SCRIPT = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+// ✅ GOOGLE APPS SCRIPT — captura de leads (ATIVO).
+// Envia só com consentimento marcado e sem dados do menor.
+const URL_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbzHfAyKGwslwaNCOhlgmWyWWzw5yKBffzu5Si4KmkJTEdWgMdVlSqFmlcopsaw2RcXx/exec';
 
 const habilidadesPredefinidas = [
   'Pacote Office básico',
@@ -2594,6 +2573,11 @@ function gerarPDFInterno() {
 
 // ============ TRACKING (item 8) ============
 function trackEvent(eventName, label) {
+  // GTM: empurra o evento pro dataLayer (GTM gerencia Pixel/GA via triggers)
+  if (window.dataLayer) {
+    window.dataLayer.push({ event: 'trackEvent', eventName: eventName,
+      eventLabel: label || 'unknown', eventCategory: 'curriculo_gerador' });
+  }
   // Facebook Pixel
   if (typeof fbq !== 'undefined') {
     try {

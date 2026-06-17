@@ -5,35 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mega Aula Gratuita: Currículo + Entrevista — Primeira Chance</title>
 <meta name="description" content="Mega Aula gratuita pra preparar seu filho de 12 a 18 anos para o primeiro emprego. Apenas quarta-feira, 24 de junho, 20h às 20h50.">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NNZXQPTD');</script>
+<!-- End Google Tag Manager -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     ⚠️  PIXELS DE REMARKETING — IMPORTANTE!
-     Antes de subir para produção, substitua os IDs abaixo:
-     - Facebook Pixel: troque 'YOUR_PIXEL_ID' (em 2 lugares)
-     - Google Analytics: troque 'G-XXXXXXXXXX' (em 2 lugares)
-═════════════════════════════════════════════════════════════════════════ -->
-<script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', 'YOUR_PIXEL_ID');
-  fbq('track', 'PageView');
-</script>
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
+<!-- Pixel (Meta) e Google Analytics agora são gerenciados pelo Google Tag Manager (snippet acima). -->
 
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -672,6 +654,10 @@
 </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NNZXQPTD"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <!-- TOP BAR -->
 <div class="top-bar">
@@ -1042,7 +1028,7 @@ const LINK_CANAL_WHATSAPP = '';
 // ⚠️ GOOGLE SHEETS — BACKUP DE LEADS
 // URL do seu Web App do Google Apps Script (instruções no documento separado)
 // Se ainda não configurou, deixe a string vazia '' que ainda funciona (só não salva no Sheets)
-const URL_GOOGLE_SHEETS = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+const URL_GOOGLE_SHEETS = 'https://script.google.com/macros/s/AKfycbzHfAyKGwslwaNCOhlgmWyWWzw5yKBffzu5Si4KmkJTEdWgMdVlSqFmlcopsaw2RcXx/exec';
 
 // ============ COUNTDOWN ============
 function atualizarCountdown() {
@@ -1072,6 +1058,11 @@ setInterval(atualizarCountdown, 1000);
 
 // ============ TRACKING ============
 function trackEvent(eventName, label) {
+  // GTM: empurra o evento pro dataLayer (GTM gerencia Pixel/GA via triggers)
+  if (window.dataLayer) {
+    window.dataLayer.push({ event: 'trackEvent', eventName: eventName,
+      eventLabel: label || 'unknown', eventCategory: 'mega_aula_landing' });
+  }
   if (typeof fbq !== 'undefined') {
     try { fbq('track', eventName, { source: label || 'unknown' }); } catch (e) {}
   }

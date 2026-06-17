@@ -1263,17 +1263,31 @@
     color: rgba(15,28,46,.5);
     text-decoration: line-through;
   }
-  .exit-price-main {
+  .exit-price-options {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 16px;
+    margin: 6px 0 0;
+  }
+  .exit-price-opt {
+    text-align: center;
+  }
+  .exit-price-amount {
     font-family: var(--font-display);
-    font-size: 26px;
+    font-size: 21px;
     font-weight: 800;
     color: var(--navy);
-    line-height: 1;
-    margin: 2px 0;
+    line-height: 1.1;
   }
-  .exit-price-installment {
+  .exit-price-label {
     font-size: 11px;
     color: var(--gray-700);
+    margin-top: 2px;
+  }
+  .exit-price-divider {
+    width: 1px;
+    background: rgba(15,28,46,.15);
   }
   .exit-actions {
     display: flex;
@@ -1847,8 +1861,17 @@
 
     <div class="exit-price">
       <div class="exit-price-strike">de R$ 789</div>
-      <div class="exit-price-main">R$ 397</div>
-      <div class="exit-price-installment">à vista · ou 12x R$41,06 no cartão</div>
+      <div class="exit-price-options">
+        <div class="exit-price-opt">
+          <div class="exit-price-amount">R$ 397</div>
+          <div class="exit-price-label">à vista</div>
+        </div>
+        <div class="exit-price-divider"></div>
+        <div class="exit-price-opt">
+          <div class="exit-price-amount">12x R$41,06</div>
+          <div class="exit-price-label">no cartão</div>
+        </div>
+      </div>
     </div>
 
     <div class="exit-actions">

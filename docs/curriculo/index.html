@@ -1768,27 +1768,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="secondary-actions">
       <button class="btn btn-ghost" onclick="goToStep(7)">← Baixar PDF de novo</button>
       <button class="btn btn-ghost" onclick="visitarSite()">Conhecer o curso</button>
+      <button class="btn btn-ghost" onclick="compartilharGerador()">🔗 Compartilhar com outros pais</button>
     </div>
 
-    <!-- Captura opcional via WhatsApp -->
-    <div class="whatsapp-card">
-      <div class="whatsapp-card-head">
-        <div class="whatsapp-icon">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-          </svg>
-        </div>
-        <div class="whatsapp-title">Quer dicas grátis de carreira?</div>
+    <!-- 2ª isca de captura — só aparece se o lead NÃO foi enviado antes do download (ver showStep) -->
+    <div class="lead-optin" id="lead-optin-2" style="margin-top: 16px; padding: 16px 18px; border: 1px solid #e8e6e1; border-radius: 12px; background: #faf9f7;">
+      <label style="display: flex; gap: 10px; align-items: flex-start; cursor: pointer; font-size: 14px; line-height: 1.45; color: #4a4840;">
+        <input type="checkbox" id="lead-consent-2" style="margin-top: 3px; width: 18px; height: 18px; flex-shrink: 0; accent-color: #f5a623;">
+        <span>Sou o responsável e quero receber os links do <strong>Simulador de Entrevista</strong> e do guia <strong>Onde Encontrar Vagas</strong> para o(a) jovem. Autorizo o Primeira Chance a entrar em contato comigo. Saiba como tratamos seus dados na nossa <!-- TODO: linkar /privacidade quando publicada --><a href="#" onclick="event.preventDefault();">Política de Privacidade</a>.</span>
+      </label>
+      <div style="margin-top: 12px;">
+        <label for="resp-whatsapp-2" style="display: block; font-size: 13px; font-weight: 600; color: #4a4840; margin-bottom: 6px;">WhatsApp do responsável <span style="font-weight: 400; color: #9b9890;">(opcional)</span></label>
+        <input type="tel" id="resp-whatsapp-2" placeholder="(00) 90000-0000" autocomplete="tel" style="width: 100%;">
+        <div style="font-size: 12px; color: #9b9890; margin-top: 6px;">Enviamos só os links úteis. Nenhum dado do(a) jovem é coletado.</div>
       </div>
-      <p class="whatsapp-desc">Se preferir não comprar agora, peça pro seu responsável receber dicas semanais de carreira pra jovens. Sem spam, dá pra cancelar quando quiser.</p>
-      <!-- TODO: reativar quando tiver WhatsApp Business -->
-      <a href="mailto:cursoprimeirachance@gmail.com?subject=Quero%20receber%20dicas%20de%20carreira%20(Primeira%20Chance)" class="btn-whatsapp" onclick="trackEvent('Contact', 'email_request')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px;">
-          <rect x="3" y="5" width="18" height="14" rx="2"/>
-          <path d="m3 7 9 6 9-6"/>
-        </svg>
-        Fale com a gente por e-mail
-      </a>
+      <button class="btn btn-success" style="width: 100%; margin-top: 12px;" onclick="enviarLeadOpcional2()">Quero receber os links</button>
+      <div id="lead-optin-2-ok" style="display: none; margin-top: 10px; font-size: 13px; color: #128C7E; font-weight: 600;">✓ Pronto! Você vai receber os links em breve.</div>
     </div>
 
   </div>
@@ -1870,6 +1865,12 @@ const totalSteps = 8;
 // ✅ GOOGLE APPS SCRIPT — captura de leads (ATIVO).
 // Envia só com consentimento marcado e sem dados do menor.
 const URL_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbzHfAyKGwslwaNCOhlgmWyWWzw5yKBffzu5Si4KmkJTEdWgMdVlSqFmlcopsaw2RcXx/exec';
+
+// Marca se o lead já foi capturado na 1ª isca (antes do download).
+// Serve pra esconder a 2ª isca na etapa 8 quando já capturamos.
+let leadEnviado = false;
+// Link canônico do gerador para compartilhar (produção).
+const LINK_GERADOR = 'https://cursoprimeirachance.com.br/curriculo/';
 
 const habilidadesPredefinidas = [
   'Pacote Office básico',
@@ -2084,6 +2085,11 @@ function showStep(n) {
   currentStep = n;
   updateProgress();
   updateStickyCTA();
+  // 2ª isca só aparece se o lead ainda não foi capturado antes do download
+  if (n === 8) {
+    const isca2 = document.getElementById('lead-optin-2');
+    if (isca2) isca2.style.display = leadEnviado ? 'none' : '';
+  }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -2710,6 +2716,8 @@ function enviarLeadOpcional() {
     const respField = document.getElementById('resp-whatsapp');
     const respWhats = respField ? respField.value.trim() : '';
 
+    leadEnviado = true;   // já capturamos na 1ª isca → 2ª isca não aparece na etapa 8
+
     // Payload mínimo — nenhum dado do menor:
     const lead = {
       whatsapp: respWhats,         // WhatsApp do responsável — único dado pessoal enviado
@@ -2732,6 +2740,51 @@ function enviarLeadOpcional() {
 // ============ AÇÕES DA OFERTA ============
 function visitarSite() {
   window.open('https://cursoprimeirachance.com.br', '_blank');
+}
+
+// 2ª isca (pós-download): MESMA lógica de envio, disparada por clique.
+// Fire-and-forget, só com consentimento, sem dados do menor.
+function enviarLeadOpcional2() {
+  try {
+    const consent = document.getElementById('lead-consent-2');
+    if (!consent || !consent.checked) {
+      alert('Marque a caixa de consentimento para receber os links.');
+      return;
+    }
+    if (URL_APPS_SCRIPT && !URL_APPS_SCRIPT.includes('YOUR_SCRIPT_ID')) {
+      const respField = document.getElementById('resp-whatsapp-2');
+      const respWhats = respField ? respField.value.trim() : '';
+      const lead = {
+        whatsapp: respWhats,                    // único dado pessoal — do responsável
+        origem: 'gerador-curriculo-pos-download',
+        data: new Date().toISOString(),
+        userAgent: navigator.userAgent
+      };
+      fetch(URL_APPS_SCRIPT, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(lead)
+      }).catch(() => {});                       // dispara e esquece
+      trackEvent('Lead', 'gerador_curriculo_optin_pos');
+    }
+    leadEnviado = true;
+    // feedback: esconde o form, mostra confirmação
+    const ok = document.getElementById('lead-optin-2-ok');
+    if (ok) ok.style.display = 'block';
+    consent.disabled = true;
+    const btn = document.querySelector('#lead-optin-2 .btn-success');
+    if (btn) btn.style.display = 'none';
+  } catch (e) { /* nunca interrompe o fluxo */ }
+}
+
+// Compartilhar o gerador (mesma lógica do "Copiar link" da obrigado da mega-aula)
+function compartilharGerador() {
+  navigator.clipboard.writeText(LINK_GERADOR).then(() => {
+    alert('✓ Link copiado! Cola no grupo de pais que você está.');
+    trackEvent('Share', 'copy_link_gerador');
+  }).catch(() => {
+    prompt('Copia o link abaixo:', LINK_GERADOR);
+  });
 }
 
 // TODO: reativar quando tiver WhatsApp Business

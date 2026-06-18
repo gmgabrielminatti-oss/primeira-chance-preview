@@ -7,3 +7,4 @@
 # Exceções liberadas para publicação:
 !/.gitignore
 !/docs/
+!/README.md
